@@ -1,5 +1,7 @@
 # fr_demo
 
+Requires Node >=14.0.0
+
 ## Project setup
 ```
 npm install
