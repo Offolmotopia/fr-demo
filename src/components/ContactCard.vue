@@ -68,6 +68,10 @@ export default {
   display: flex;
   gap: 10px;
 }
+
+.contact__collapse {
+  cursor: pointer;
+}
 .down {
   transform: rotate(90deg);
 }
