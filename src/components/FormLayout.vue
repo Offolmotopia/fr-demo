@@ -83,48 +83,26 @@
     </div>
     <div class="row" v-else>
       <div class="contacts">
-        <div class="contact" v-for="c in filteredContacts" :key="c.id">
-          <div class="contact__data">
-            <svg class="contact__collapse bi bi-chevron-right"
-                 :ref="'contact-' + c.id"
-                 @click="open(c.id)"
-                 data-bs-toggle="collapse"
-                 :data-bs-target="'#contact-' + c.id"
-                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-            <div class="contact__info">
-              <div class="contact__name">{{ c.firstName + ' ' + c.lastName }}</div>
-              <div class="contact__position">{{ c.jobTitle }}</div>
-              <div class="contact__company">{{ 'at ' + c.company }}</div>
-
-              <div class="collapse" :id="'contact-' + c.id">
-                <hr>
-                <div class="contact__country">{{ 'location: ' + c.country }}</div>
-                <div class="contact__email">{{ c.email }}</div>
-                <div class="contact__number">{{ c.phone }}</div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="contact__controls dropdown" style="position: relative;">
-              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                      aria-expanded="false"></button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#" @click="removeContact(c.id)">delete</a></li>
-                <li><a class="dropdown-item" href="#" @click="edit(c.id)">edit</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <contact-card
+            v-for="c in filteredContacts"
+            :key="c.id"
+            :firstName='c.firstName'
+            :lastName='c.lastName'
+            :jobTitle='c.jobTitle'
+            :email='c.email'
+            :company='c.company'
+            :country='c.country'
+            :phone='c.phone'
+            :id='c.id'
+            @show-info="open"
+            @remove="removeContact"
+            @edit="edit"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
 import {faker} from '@faker-js/faker';
 import {mapActions, mapState} from "pinia";
 import {useContactsStore} from "@/stores/Contacts";
@@ -132,6 +110,7 @@ import {VueFinalModal} from 'vue-final-modal'
 import Multiselect from 'vue-multiselect'
 import {useVuelidate} from '@vuelidate/core'
 import {required, email} from '@vuelidate/validators'
+import ContactCard from "@/components/ContactCard";
 
 export default {
   setup() {
@@ -152,7 +131,7 @@ export default {
   },
   name: "FormLayout",
   // eslint-disable-next-line vue/no-unused-components
-  components: {VueFinalModal, Multiselect},
+  components: {ContactCard, VueFinalModal, Multiselect},
   data: () => ({
     form: {
       firstName: '',
@@ -192,8 +171,8 @@ export default {
     openModal() {
       this.modalVisible = true
     },
-    open(id) {
-      this.$refs[`contact-${id}`][0].classList.toggle('down')
+    open(payload) {
+      payload.ref.classList.toggle('down')
     },
     async save() {
       const isFormCorrect = await this.v$.$validate()
@@ -244,26 +223,12 @@ export default {
 
 <style scoped>
 
-.form {
-
-}
-
 .contacts {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.contact {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.contact__data {
-  display: flex;
-  gap: 10px;
-}
 
 ::v-deep .modal-container {
   display: flex;
@@ -297,30 +262,10 @@ export default {
   margin-bottom: 12px;
 }
 
-.down {
-  transform: rotate(90deg);
-}
-
-.contact__controls {
-  display: flex;
-  gap: 16px;
-}
-
-.circle {
-  border-radius: 50%;
-  width: 38px;
-  height: 38px;
-  padding: 5px;
-}
-
 .error {
   font-weight: 700;
   font-size: 12px;
   color: #d50a00;
-}
-
-.toast {
-
 }
 
 .modal__footer {
