@@ -60,20 +60,20 @@
     <div class="px-4 pt-3">
     <div class="row pb-3">
       <div class="col">
-        <div style="display:flex;justify-content:flex-start;align-items:center;height:100%;font-weight:700;">
+        <div style="display:flex;justify-content:flex-start;align-items:center;height:100%;font-weight:700;font-size:24px;">
           Contacts
         </div>
       </div>
       <div class="col">
         <div style="display:flex;justify-content:flex-end;align-items:center;">
-          <div class="btn btn-primary" @click="edit()">Add</div>
+          <div class="btn btn-primary px-4 py-2" @click="edit()">Add</div>
         </div>
       </div>
     </div>
     </div>
     <div class="row mb-3">
       <div class="px-4">
-      <input type="text" v-model="search" class="search" placeholder="Start typing name, email or phone number">
+      <input type="text" v-model="search" class="search form-control" placeholder="Start typing name, email or phone number">
       </div>
     </div>
     <div class="row pb-3">
@@ -229,8 +229,8 @@ export default {
 
 .form {
   margin-top: 40px;
-  box-shadow: #a9a9a9 0px 12px 20px 0px;
-  border-radius: 24px;
+  /*box-shadow: #a9a9a9 0px 4px 10px 0px;*/
+  /*border-radius: 24px;*/
 }
 
 .contacts {
@@ -303,5 +303,7 @@ export default {
   display: flex;
   justify-content: center;
   gap: 6px;
+  font-weight: 300;
+  font-size: 16px;
 }
 </style>

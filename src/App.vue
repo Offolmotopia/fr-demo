@@ -28,6 +28,7 @@ export default {
 <style>
 * {
 transition: all 0.3s ease;
+  font-family: 'Lato', sans-serif;
 }
 body {
 
