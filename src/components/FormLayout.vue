@@ -1,5 +1,4 @@
 <template>
-  <div>
   <div class="form">
     <vue-final-modal classes="modal-container" content-class="modal-content" v-model="modalVisible">
       <div class="modal__title p-3">
@@ -58,45 +57,37 @@
         </div>
       </div>
     </vue-final-modal>
-    <div class="">
+    <div class="px-4 pt-3">
     <div class="row pb-3">
       <div class="col">
-        <div style="display:flex;justify-content:flex-start;align-items:center;height:100%;font-weight:700;font-size: 16px;">
+        <div style="display:flex;justify-content:flex-start;align-items:center;height:100%;font-weight:700;font-size:24px;">
           Contacts
         </div>
       </div>
       <div class="col">
         <div style="display:flex;justify-content:flex-end;align-items:center;">
-            <svg style="cursor:pointer; width: 28px; height: 28px" @click="edit()"
-                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-            </svg>
+          <div class="btn btn-primary px-4 py-2" @click="edit()">Add</div>
         </div>
       </div>
     </div>
     </div>
     <div class="row mb-3">
-      <div class="px-3">
+      <div class="px-4">
       <input type="text" v-model="search" class="search form-control" placeholder="Start typing name, email or phone number">
       </div>
     </div>
     <div class="row pb-3">
       <div class="num-contacts"><strong>{{ filteredContacts.length }}</strong> contacts found</div>
     </div>
-  </div>
     <!--  TODO skeleton components while loading  -->
-    <div class="d-flex form justify-content-center" v-if="loading">
+    <div class="d-flex justify-content-center" v-if="loading">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    <div v-else>
-      <div>
-      </div>
-      <div class="contacts form p-3">
-        <div v-if="filteredContacts.length > 0">
+    <div class="row" v-else>
+      <div class="contacts px-4 pb-4">
         <contact-card
-            class="pb-3"
             v-for="c in filteredContacts"
             :key="c.id"
             :firstName='c.firstName'
@@ -110,10 +101,6 @@
             @show-info="open"
             @remove="removeContact"
             @edit="edit"/>
-        </div>
-        <div style="display: flex;justify-content: center;align-items: center;" v-else>
-          No contacts found!
-        </div>
       </div>
     </div>
   </div>
@@ -241,11 +228,9 @@ export default {
 <style scoped>
 
 .form {
-  box-shadow: #a9a9a9 0px 4px 10px 0px;
-  border-radius: 24px;
-  margin-bottom: 28px;
-  width: 100%;
-  padding: 8px 24px;
+  margin-top: 40px;
+  /*box-shadow: #a9a9a9 0px 4px 10px 0px;*/
+  /*border-radius: 24px;*/
 }
 
 .contacts {
@@ -318,5 +303,7 @@ export default {
   display: flex;
   justify-content: center;
   gap: 6px;
+  font-weight: 300;
+  font-size: 16px;
 }
 </style>
