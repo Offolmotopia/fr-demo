@@ -67,11 +67,17 @@ export default {
 .contact__data {
   display: flex;
   gap: 10px;
+  position: relative;
+  padding-left: 48px;
 }
 
 .contact__collapse {
+  position: absolute;
+  top: 20px;
+  left: 18px;
   cursor: pointer;
 }
+
 .down {
   transform: rotate(90deg);
 }

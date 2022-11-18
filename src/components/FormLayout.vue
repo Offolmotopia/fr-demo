@@ -57,6 +57,7 @@
         </div>
       </div>
     </vue-final-modal>
+    <div class="px-4 pt-3">
     <div class="row pb-3">
       <div class="col">
         <div style="display:flex;justify-content:flex-start;align-items:center;height:100%;font-weight:700;">
@@ -69,11 +70,14 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="row mb-3">
+      <div class="px-4">
       <input type="text" v-model="search" class="search" placeholder="Start typing name, email or phone number">
+      </div>
     </div>
     <div class="row pb-3">
-      {{ filteredContacts.length }} contacts found
+      <div class="num-contacts"><strong>{{ filteredContacts.length }}</strong> contacts found</div>
     </div>
     <!--  TODO skeleton components while loading  -->
     <div class="d-flex justify-content-center" v-if="loading">
@@ -82,7 +86,7 @@
       </div>
     </div>
     <div class="row" v-else>
-      <div class="contacts">
+      <div class="contacts px-4 pb-4">
         <contact-card
             v-for="c in filteredContacts"
             :key="c.id"
@@ -223,6 +227,12 @@ export default {
 
 <style scoped>
 
+.form {
+  margin-top: 40px;
+  box-shadow: #a9a9a9 0px 12px 20px 0px;
+  border-radius: 24px;
+}
+
 .contacts {
   display: flex;
   flex-direction: column;
@@ -230,12 +240,15 @@ export default {
 }
 
 
+
+
 ::v-deep .modal-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 70%;
   margin: auto;
+  border-radius: 24px;
 }
 
 ::v-deep .multiselect {
@@ -276,5 +289,19 @@ export default {
 .button-group {
   display: flex;
   gap: 18px;
+}
+
+.search {
+  height: 38px;
+  line-height: 38px;
+  border-radius: 12px;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.num-contacts {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
 }
 </style>
