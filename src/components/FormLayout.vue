@@ -1,7 +1,5 @@
 <template>
   <div>
-
-
   <div class="form">
     <vue-final-modal classes="modal-container" content-class="modal-content" v-model="modalVisible">
       <div class="modal__title p-3">
@@ -63,7 +61,7 @@
     <div class="">
     <div class="row pb-3">
       <div class="col">
-        <div style="display:flex;justify-content:flex-start;align-items:center;height:100%;font-weight:700;">
+        <div style="display:flex;justify-content:flex-start;align-items:center;height:100%;font-weight:700;font-size: 16px;">
           Contacts
         </div>
       </div>
@@ -78,7 +76,7 @@
     </div>
     </div>
     <div class="row mb-3">
-      <div class="px-5">
+      <div class="px-3">
       <input type="text" v-model="search" class="search form-control" placeholder="Start typing name, email or phone number">
       </div>
     </div>
@@ -243,7 +241,7 @@ export default {
 <style scoped>
 
 .form {
-  box-shadow: #a9a9a9 0px 8px 10px 0px;
+  box-shadow: #a9a9a9 0px 4px 10px 0px;
   border-radius: 24px;
   margin-bottom: 28px;
   width: 100%;
