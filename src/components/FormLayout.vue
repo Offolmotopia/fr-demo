@@ -1,4 +1,7 @@
 <template>
+  <div>
+
+
   <div class="form">
     <vue-final-modal classes="modal-container" content-class="modal-content" v-model="modalVisible">
       <div class="modal__title p-3">
@@ -57,7 +60,7 @@
         </div>
       </div>
     </vue-final-modal>
-    <div class="px-4 pt-3">
+    <div class="">
     <div class="row pb-3">
       <div class="col">
         <div style="display:flex;justify-content:flex-start;align-items:center;height:100%;font-weight:700;">
@@ -72,22 +75,27 @@
     </div>
     </div>
     <div class="row mb-3">
-      <div class="px-4">
-      <input type="text" v-model="search" class="search" placeholder="Start typing name, email or phone number">
+      <div class="px-5">
+      <input type="text" v-model="search" class="search form-control" placeholder="Start typing name, email or phone number">
       </div>
     </div>
     <div class="row pb-3">
       <div class="num-contacts"><strong>{{ filteredContacts.length }}</strong> contacts found</div>
     </div>
+  </div>
     <!--  TODO skeleton components while loading  -->
-    <div class="d-flex justify-content-center" v-if="loading">
+    <div class="d-flex form justify-content-center" v-if="loading">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    <div class="row" v-else>
-      <div class="contacts px-4 pb-4">
+    <div v-else>
+      <div>
+      </div>
+      <div class="contacts form p-3">
+        <div v-if="filteredContacts.length > 0">
         <contact-card
+            class="pb-3"
             v-for="c in filteredContacts"
             :key="c.id"
             :firstName='c.firstName'
@@ -101,6 +109,10 @@
             @show-info="open"
             @remove="removeContact"
             @edit="edit"/>
+        </div>
+        <div style="display: flex;justify-content: center;align-items: center;" v-else>
+          No contacts found!
+        </div>
       </div>
     </div>
   </div>
@@ -228,9 +240,11 @@ export default {
 <style scoped>
 
 .form {
-  margin-top: 40px;
-  box-shadow: #a9a9a9 0px 12px 20px 0px;
+  box-shadow: #a9a9a9 0px 8px 10px 0px;
   border-radius: 24px;
+  margin-bottom: 28px;
+  width: 100%;
+  padding: 8px 24px;
 }
 
 .contacts {
