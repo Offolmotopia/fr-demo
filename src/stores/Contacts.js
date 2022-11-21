@@ -7,7 +7,7 @@ export const useContactsStore = defineStore('contacts', {
         loading: false,
     }),
     getters: () => ({
-       contacts: () => this.contacts
+        contacts: () => this.contacts
     }),
     actions: {
         initialize() {
@@ -15,7 +15,10 @@ export const useContactsStore = defineStore('contacts', {
             return http.contact.getContacts().then((data) => {
                 // pinia allows to mutate the store directly
                 this.contacts = data
-                this.loading = false
+                setTimeout(() => {
+                    this.loading = false
+                }, 2000)
+
             }).catch((err) => {
                 console.error(err)
                 throw err

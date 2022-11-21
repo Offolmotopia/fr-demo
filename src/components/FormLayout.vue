@@ -2,7 +2,7 @@
   <div class="form">
     <vue-final-modal classes="modal-container" content-class="modal-content" v-model="modalVisible">
       <div class="modal__title p-3">
-        Add contact
+        {{ editMode ? 'Edit' : 'Add' }} &nbsp;contact
       </div>
       <div class="modal__content p-3">
         <form>
@@ -52,44 +52,40 @@
       </div>
       <div class="modal__footer p-3">
         <div class="button-group">
-          <div class="btn btn-primary" @click="save">save</div>
-          <div class="btn btn-secondary" @click="modalVisible = false">cancel</div>
+          <div class="btn btn-primary" @click="save">Save</div>
+          <div class="btn btn-secondary" @click="modalVisible = false">Cancel</div>
         </div>
       </div>
     </vue-final-modal>
     <div class="px-4 pt-3">
-    <div class="row pb-3">
-      <div class="col">
-        <div style="display:flex;justify-content:flex-start;align-items:center;height:100%;font-weight:700;font-size:24px;">
-          Contacts
+      <div class="row pb-3">
+        <div class="col">
+          <div class="header">
+            <strong>{{ filteredContacts.length + ' ' }}</strong> &nbsp;Contacts {{ ' ' + (search ? 'found' : '') }}
+          </div>
+        </div>
+        <div class="col">
+          <div class="contact__add">
+            <div class="btn btn-primary px-4 py-2" @click="edit()">Add</div>
+          </div>
         </div>
       </div>
-      <div class="col">
-        <div style="display:flex;justify-content:flex-end;align-items:center;">
-          <div class="btn btn-primary px-4 py-2" @click="edit()">Add</div>
-        </div>
-      </div>
-    </div>
     </div>
     <div class="row mb-3">
       <div class="px-4">
-      <input type="text" v-model="search" class="search form-control" placeholder="Start typing name, email or phone number">
+        <input type="text" v-model="search" class="search form-control"
+               placeholder="Start typing name, email or phone number">
       </div>
     </div>
-    <div class="row pb-3">
-      <div class="num-contacts"><strong>{{ filteredContacts.length }}</strong> contacts found</div>
-    </div>
-    <!--  TODO skeleton components while loading  -->
-    <div class="d-flex justify-content-center" v-if="loading">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-    <div class="row" v-else>
+    <!--    <div class="row pb-3">-->
+    <!--      <div class="num-contacts"> contacts found</div>-->
+    <!--    </div>-->
+    <div class="row">
       <div class="contacts px-4 pb-4">
         <contact-card
-            v-for="c in filteredContacts"
-            :key="c.id"
+            v-for="(c, idx) in (loading ? 4 : filteredContacts)"
+            :skeletonized="loading"
+            :key="idx"
             :firstName='c.firstName'
             :lastName='c.lastName'
             :jobTitle='c.jobTitle'
@@ -98,10 +94,10 @@
             :country='c.country'
             :phone='c.phone'
             :id='c.id'
-            @show-info="open"
             @remove="removeContact"
             @edit="edit"/>
       </div>
+
     </div>
   </div>
 </template>
@@ -175,9 +171,9 @@ export default {
     openModal() {
       this.modalVisible = true
     },
-    open(payload) {
-      payload.ref.classList.toggle('down')
-    },
+    // open(payload) {
+    // payload.ref.classList.toggle('down')
+    // },
     async save() {
       const isFormCorrect = await this.v$.$validate()
       if (isFormCorrect) {
@@ -240,8 +236,6 @@ export default {
 }
 
 
-
-
 ::v-deep .modal-container {
   display: flex;
   justify-content: center;
@@ -299,11 +293,18 @@ export default {
   padding: 0 16px;
 }
 
-.num-contacts {
+.header {
   display: flex;
-  justify-content: center;
-  gap: 6px;
-  font-weight: 300;
-  font-size: 16px;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.contact__add {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 </style>
